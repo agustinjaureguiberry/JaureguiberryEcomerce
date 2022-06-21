@@ -1,3 +1,7 @@
+
+// -----------------------  Creacion de clases utilizadas -----------------------
+
+
 class productos {
     constructor(codigo, nombre, precio) {
         this.cod = codigo;
@@ -9,10 +13,41 @@ class productos {
     }
 }
 
+
+class cuotas {
+    constructor(cod, descripcion, interes) {
+        this.cod = cod
+        this.descripcion = descripcion
+        this.interes = interes
+    }
+    muestra() {
+        console.log(this.cod + "  -   " + this.descripcion + "   -   " + this.interes + "%")
+
+    }
+    sumaInteres(precio) {
+        let interes = precio * (this.interes / 100)
+        return (precio + interes)
+    }
+    calculaCuota(precio) {
+        return (precio / this.cod)
+    }
+}
+
+// -----------------------  Creacion de arrays -----------------------
 const agregaproducto = (array, cod, desc, precio) => {
     let nuevoProd = new productos(cod, desc, precio)
     array.push(nuevoProd)
 }
+
+const agregaCuota = (array, cod, desc, precio) => {
+    let nuevaCuota = new cuotas(cod, desc, precio)
+    array.push(nuevaCuota)
+}
+
+
+
+
+// -----------------------  Creacion de funciones necesarias -----------------------
 
 const muestraProd = (array) => {
     console.log("-----------------------------")
@@ -52,30 +87,6 @@ const descripcionProd = (num) => {
     }
 }
 
-class cuotas {
-    constructor(cod, descripcion, interes) {
-        this.cod = cod
-        this.descripcion = descripcion
-        this.interes = interes
-    }
-    muestra() {
-        console.log(this.cod + "  -   " + this.descripcion + "   -   " + this.interes + "%")
-
-    }
-    sumaInteres(precio) {
-        let interes = precio * (this.interes / 100)
-        return (precio + interes)
-    }
-    calculaCuota(precio) {
-        return (precio / this.cod)
-    }
-}
-
-const agregaCuota = (array, cod, desc, precio) => {
-    let nuevaCuota = new cuotas(cod, desc, precio)
-    array.push(nuevaCuota)
-}
-
 
 const muestraCuotas = (array) => {
     console.log("-----------------------------")
@@ -87,8 +98,13 @@ const muestraCuotas = (array) => {
     console.log("-----------------------------")
 }
 
+
+
+// -----------------------  Inicializacion de variables y constantes -----------------------
+
 const arrayProductos = []
 const arrayCuotas = []
+const temasAplicados = ["Temas anteriores a CLASE 6", "Arrays", "Funciones", "DOM"]
 let cod
 let desc
 let prec
@@ -129,7 +145,6 @@ do {
     else {
         repeat = false
     }
-
 } while (repeat)
 
 alert("Su lista de precios ha sido cargada, en consola aparece completa.")

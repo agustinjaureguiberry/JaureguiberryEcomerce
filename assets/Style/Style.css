@@ -41,13 +41,13 @@ h2{
     font-size: 30px;
     text-align: center;
 }
-ul{
+ul {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
 }
 
-ul li{
+.lista {
     font-size: 20px;
     padding: 20px;
 }
