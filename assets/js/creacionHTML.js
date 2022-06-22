@@ -32,4 +32,3 @@ modificaHTML = document.getElementById("divContainer")
 element = document.CreateElement("footer")
 modificaHTML.append(element)
 element.innerHTML = `<h2>Disculpe las molestias</h2>`
-

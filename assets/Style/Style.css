@@ -6,9 +6,14 @@
     box-sizing: border-box; 
 }
 
+@font-face {
+    font-family: "saira";
+    src: url(./../fonts/SairaCondensed-Light.ttf);
+} 
 
 .contentGrid {
-    background-image: linear-gradient(to bottom left, #D887D0 15%, #010C34 65%);
+    font-family: "saira";
+    background-image: linear-gradient( #32dfdf 5%, #21288a 75%);
     color: #fff;
     width: 100%;
     display: grid;
