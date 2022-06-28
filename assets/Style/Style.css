@@ -1,26 +1,33 @@
-* {
-    padding: 0%;
-    margin: 0%;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box; 
-}
+/*INICIO DE ESTILOS PREDETERMINADOS */
 
 @font-face {
     font-family: "saira";
     src: url(./../fonts/SairaCondensed-Light.ttf);
 } 
 
-.contentGrid {
+* {
+    padding: 0%;
+    margin: 0%;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box; 
     font-family: "saira";
+}
+
+
+.contentGrid {
     background-image: linear-gradient( rgb(50, 223, 223) 5%, #21288a 75%);
-    color: #fff;
+    position: absolute; 
     width: 100%;
+    height: auto;
+    left: 0px;
+    top: 0px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto auto;
     grid-template-areas: "header header"  "tittle tittle" "conten conten" "footer footer"; 
-    }
+    } 
+
 
 header{
     grid-area: header;
@@ -34,15 +41,20 @@ h1{
     grid-area: tittle;
     padding: 15px; 
     border-bottom: #fff;
+    color: #fff;
     border-bottom-style: solid;
 }
 h2{
     font-size: 30px;
     text-align: center;
+    border-bottom: #fff;
+    color: #fff;
 }
 h3{
     font-size: 25px;
     text-align: center;
+    border-bottom: #fff;
+    color: #fff;
 }
 
 main{
@@ -50,36 +62,67 @@ main{
 }
 
 
-
 ul {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    color: #fff;
 }
-
-.lista {
-    font-size: 20px;
-    padding: 20px;
+li{
+    font-size: 40px;
+    padding: 40px;
 }
 
 footer{
     grid-area: footer;
 }
 
-#nuevoProducto {
-    width: 60%;
-    margin-left: 20%;
-    height: auto;
+/* ESTILOS DE MODAL "CARGA DE PRODUCTOS" */
+
+.modalContainer {
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
     border-radius: 10px;
-    background-color: rgba(50, 223 ,223 , .5) ;
+    background-color: rgba(0,0,0,0.4) ;
+    font-size: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s all;
+}
 
+.modalCarga{
+    padding: 30px;
+    display: flex;
+    flex-flow: column wrap ;
+    justify-content: center;
+    color:#21288a;
+    width: auto;
+    height: auto;
+    background-color: #fff;
+}
+
+.btnCerrar{
+    display: flex;
+    justify-content: right;
+    padding-right: 40px ;
+    width: auto ;
+    height: auto;
+}
+
+.modalVisible{
+    opacity: 1;
+    visibility: visible;
 }
 
 .form-text{
-    color: #fff;
-    font-family: "saira"
+    color: rgb(0,0,0);
 }
 
 .form-label{
@@ -101,20 +144,111 @@ footer{
 }
 
 
-.listaPrecios{
-    width: 80%;
-    margin-top: 100px;
-    margin-left: 10%;
+/*ESTILOS DE LISTA DE PRECIOS*/
+
+.containerLdp{
+    width: 50%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
 }
 
-thead tr th {
+.containerBusqueda{
+    width: 100%;
+    padding-right: 55px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: end;
+}
+
+.containerInputB{
+    width: 35%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content:right;
+    margin: 10px;
+    position: relative;
+    white-space: nowrap;
+}
+
+.containerInputB h2{
+    padding-right: 40px ;
+    border-bottom: solid 2px;
+}
+
+.ldp{
+    text-align: left;
+    width: 45%;
+    display: block;
+    border-bottom: #fff solid 2px;
+}
+#search{
+    background: transparent;
+    border: solid 1px;
+    border-color: #fff;
+    color: #fff;
+    width: 250px;
+    height: 30px;
+    border-radius: 15px;
+    float: left;
+    padding-left: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.containerInputB input#search::-webkit-input-placeholder {
+    color: #fff;
+ }
+
+ .containerInputB .search{
+    position: absolute;
+    margin-top: 3px;
+    margin-right: 10px;
+    z-index: 1;
+}
+
+.listaPrecios{
+    background-color: #fff;
+    width: 80%;
+    height: 500px;
+    overflow: auto;
+    margin-left: 15%;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.table{
+    --bs-border-color: #21288a;
+    --bs-table-color: #21288a;
+    border-width: 4px;
     text-align: center;
-    color: #fff;  }
+    border-spacing: 10px;
+}
+
+.table thead{
+    border-bottom: solid 3px;
+
+}
+
+
+
+/* thead tr th {
+    text-align: center !important;
+    color: #21288a  !important;
+}
+tbody tr th {
+    text-align: center !important;
+    color: rgb(0,0,0) !important;
+}
   
-  tbody tr th {
-    text-align: center;
-    color: #fff; }
-  
-  tbody tr td {
-    text-align: center;
-    color: #fff; }
+.table{
+    border-color: #21288a;
+    border-width: 210px;
+    /* --bs-table-hover-color: #02fc38 !important;
+ } */
+
+
+/* .modalContainer{
+    
+} */

@@ -2,13 +2,11 @@
 
 
 class productos {
-    constructor(codigo, nombre, precio) {
+    constructor(codigo, nombre, precio, stock) {
         this.cod = codigo;
         this.descripcion = nombre;
         this.precio = precio;
-    }
-    muestra() {
-        console.log(this.cod + "  -   " + this.descripcion + "   -  $" + this.precio)
+        this.stock = stock;
     }
 }
 
@@ -49,14 +47,23 @@ const agregaCuota = (array, cod, desc, precio) => {
 // -----------------------  Creacion de funciones necesarias -----------------------
 
 const muestraProd = (array) => {
-    modificaHTML = document.getElementById("listaDePrecios")
+    const modificaHTML = document.querySelector("#listaDePrecios")
+    modificaHTML.innerHTML = `<thead>
+                                    <tr>
+                                    <th scope="col" colspan="2" style="text-align: left;">Producto</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">ADD </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaDePrecios">
+                                </tbody>`
     array.forEach((producto) => {
-        const element = document.createElement("tr")
-        element.innerHTML = `<th>${producto.cod}</th><th>${producto.descripcion}</th><th>${producto.precio}</th>`
-        console.log(element)
-        modificaHTML.append(element)
+        const tr = document.createElement("tr")
+        tr.innerHTML = `<th colspan="2" scope="col" style="padding-left:5px; text-align: left; color:rgb(0,0,0)">${producto.descripcion}</th><th scope="col" style="color:rgb(0,0,0)">$${producto.precio}</th><th scope="col" style="color:rgb(0,0,0)"><lord-icon src="https://cdn.lordicon.com/aoggitwj.json"
+        trigger="click" colors="primary:#CD3CE4" style="width:40px;height:40px">
+    </lord-icon></th>`
+        modificaHTML.append(tr)
     });
-
 }
 
 const precioProd = (num) => {
@@ -101,13 +108,6 @@ const muestraCuotas = (array) => {
 
 
 // -----------------------  Inicializacion de variables y constantes -----------------------
-
-const arrayProductos = []
-const arrayCuotas = []
-const temasAplicados = ["Temas anteriores a CLASE 6", "Arrays", "Funciones", "DOM"]
-let cod
-let desc
-let prec
 let producto
 let cantidad
 let cuota
@@ -120,18 +120,34 @@ let Continue = true
 
 
 
-let btnCargar = document.querySelector("#btnCargar")
-
+const btnCargar = document.querySelector("#btnCargar")
+muestraProd(arrayProductos)
 
 btnCargar.addEventListener("click", () => {
-    cod = document.querySelector("#productoId")
-    desc = document.querySelector("#descripcionId")
-    prec = document.querySelector("#precioId")
-    agregaproducto(arrayProductos, cod.value, desc.value, prec.value)
+    const cod = document.querySelector("#productoId")
+    const desc = document.querySelector("#descripcionId")
+    const prec = document.querySelector("#precioId")
+    const stock = document.querySelector("#stockId")
+    agregaproducto(arrayProductos, cod.value, desc.value, prec.value, stockId.value)
     muestraProd(arrayProductos)
 })
 
+const modalContainer = document.getElementById("nuevoProducto")
+const btnAbrir = document.getElementById("btnAbrir")
 
+btnAbrir.addEventListener("click", () => {
+    const modalCarga = document.getElementById("modalCarga")
+    modalContainer.classList.add("modalVisible")
+    modalCarga.classList.remove("modalCargaVisible")
+})
+
+const btnCerrar = document.getElementById("btnCerrar")
+
+btnCerrar.addEventListener("click", () => {
+    const modalCarga = document.getElementById("modalCarga")
+    modalContainer.classList.remove("modalVisible")
+    modalCarga.classList.remove("modalCargaVisible")
+})
 
 
 // alert("Bienvenido usuario al desafio N°2 correspondiente a la clase N°6")
