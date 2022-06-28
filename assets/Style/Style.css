@@ -6,9 +6,14 @@
     box-sizing: border-box; 
 }
 
+@font-face {
+    font-family: "saira";
+    src: url(./../fonts/SairaCondensed-Light.ttf);
+} 
 
 .contentGrid {
-    background-image: linear-gradient(to bottom left, #D887D0 15%, #010C34 65%);
+    font-family: "saira";
+    background-image: linear-gradient( rgb(50, 223, 223) 5%, #21288a 75%);
     color: #fff;
     width: 100%;
     display: grid;
@@ -31,23 +36,28 @@ h1{
     border-bottom: #fff;
     border-bottom-style: solid;
 }
-
-main{
-    grid-area: conten;
-    text-align: center;
-}
-
 h2{
     font-size: 30px;
     text-align: center;
 }
-ul{
+h3{
+    font-size: 25px;
+    text-align: center;
+}
+
+main{
+    grid-area: conten;
+}
+
+
+
+ul {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
 }
 
-ul li{
+.lista {
     font-size: 20px;
     padding: 20px;
 }
@@ -55,3 +65,56 @@ ul li{
 footer{
     grid-area: footer;
 }
+
+#nuevoProducto {
+    width: 60%;
+    margin-left: 20%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: rgba(50, 223 ,223 , .5) ;
+
+}
+
+.form-text{
+    color: #fff;
+    font-family: "saira"
+}
+
+.form-label{
+    font-size: 40px;
+}
+
+.col-form-label{
+    width: 100px;
+}
+
+.form-control{
+    margin-left: 80px;
+    width: 300px;
+}
+
+.botones{
+    margin: 10px;
+    text-align: center ;
+}
+
+
+.listaPrecios{
+    width: 80%;
+    margin-top: 100px;
+    margin-left: 10%;
+}
+
+thead tr th {
+    text-align: center;
+    color: #fff;  }
+  
+  tbody tr th {
+    text-align: center;
+    color: #fff; }
+  
+  tbody tr td {
+    text-align: center;
+    color: #fff; }
