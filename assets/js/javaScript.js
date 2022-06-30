@@ -31,23 +31,37 @@ class cuotas {
 }
 
 // -----------------------  Creacion de arrays -----------------------
-const agregaproducto = (array, cod, desc, precio) => {
-    let nuevoProd = new productos(cod, desc, precio)
+const agregaproducto = (array, cod, desc, precio, stock) => {
+    let nuevoProd = new productos(cod, desc, precio, stock)
     array.push(nuevoProd)
 }
+
 
 const agregaCuota = (array, cod, desc, precio) => {
     let nuevaCuota = new cuotas(cod, desc, precio)
     array.push(nuevaCuota)
 }
 
+const agregaCarrito = (id) => {
+    const producto = arrayProductos.find((prod) => prod.cod == id)
+    producto.cantidad = 1
+    arrayCarrito.push(producto)
+    muestraCarrito(arrayCarrito)
+    precioTotal()
+}
 
-
+const quitaCarrito = (id) => {
+    const i = arrayCarrito.indexOf(arrayCarrito.find((elem) => elem.cod === id))
+    arrayCarrito.splice(i, 1)
+    muestraCarrito(arrayCarrito)
+    console.log(arrayCarrito)
+    precioTotal()
+}
 
 // -----------------------  Creacion de funciones necesarias -----------------------
 
 const muestraProd = (array) => {
-    const modificaHTML = document.querySelector("#listaDePrecios")
+    let modificaHTML = document.querySelector("#listaDePrecios")
     modificaHTML.innerHTML = `<thead>
                                     <tr>
                                     <th scope="col" colspan="2" style="text-align: left;">Producto</th>
@@ -55,56 +69,61 @@ const muestraProd = (array) => {
                                     <th scope="col">ADD </th>
                                     </tr>
                                 </thead>
-                                <tbody id="listaDePrecios">
+                                <tbody id="tbodyLdp">
                                 </tbody>`
+    modificaHTML = document.querySelector("#tbodyLdp")
     array.forEach((producto) => {
         const tr = document.createElement("tr")
-        tr.innerHTML = `<th colspan="2" scope="col" style="padding-left:5px; text-align: left; color:rgb(0,0,0)">${producto.descripcion}</th><th scope="col" style="color:rgb(0,0,0)">$${producto.precio}</th><th scope="col" style="color:rgb(0,0,0)"><lord-icon src="https://cdn.lordicon.com/aoggitwj.json"
+        tr.innerHTML = `<th colspan="2" scope="col" style="padding-left:5px; text-align: left; color:rgb(0,0,0)">${producto.descripcion}</th>
+        <th scope="col" style="color:rgb(0,0,0)">$${producto.precio}</th>
+        <th scope="col" style="color:rgb(0,0,0)">
+        <lord-icon onclick="agregaCarrito(${producto.cod})" src="https://cdn.lordicon.com/aoggitwj.json"
         trigger="click" colors="primary:#CD3CE4" style="width:40px;height:40px">
-    </lord-icon></th>`
+        </lord-icon>
+        </th>`
         modificaHTML.append(tr)
     });
 }
 
-const precioProd = (num) => {
-    switch (num) {
-        case telev.cod:
-            return telev.precio
-            break
-        case micro.cod:
-            return micro.precio
-            break
-        case lavar.cod:
-            return lavar.precio
-            break
+const muestraCarrito = (array) => {
+    let modificaHTML = document.querySelector("#tablaCarrito")
+    modificaHTML.innerHTML = ` <thead>
+                                        <tr>
+                                            <th scope="col" colspan="2" style="text-align: left;">Producto</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Precio U.</th>
+                                            <th scope="col">Sub total</th>
+                                            <th scope="col">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodycarrito">
+                                    </tbody>`
+    modificaHTML = document.querySelector("#tbodycarrito")
+    if (array.length != 0) {
+        array.forEach((producto) => {
+            const tr = document.createElement("tr")
+            tr.innerHTML = `<th colspan="2" scope="col" style="padding-left:5px; text-align: left; color:rgb(0,0,0)">${producto.descripcion}</th>
+            <th scope="col" style="color:rgb(0,0,0)"><input id="inputCantidad" type="number" value="1"></input></th>
+            <th scope="col" style="color:rgb(0,0,0)">$${producto.precio}</input></th>
+            <th scope="col" style="color:rgb(0,0,0)">$${((producto.precio) * (producto.cantidad))}</input></th>
+            <th scope="col" style="color:rgb(0,0,0)">
+            <lord-icon onclick="quitaCarrito(${producto.cod})" src="https://cdn.lordicon.com/dovoajyj.json" trigger="hover" colors="primary:#21288a" state="morph-fill" style="width:40px;height:40px">
+</lord-icon>
+            </th>`
+            modificaHTML.append(tr)
+        })
     }
+
+};
+
+const precioTotal = () => {
+    let total = 0
+    arrayCarrito.forEach((elem) => {
+        total += elem.precio
+    })
+
+    sumaCarrito.innerText = total
 }
-
-const descripcionProd = (num) => {
-    switch (num) {
-        case telev.cod:
-            return telev.descripcion
-            break
-        case micro.cod:
-            return micro.descripcion
-            break
-        case lavar.cod:
-            return lavar.descripcion
-            break
-    }
-}
-
-
-const muestraCuotas = (array) => {
-    console.log("-----------------------------")
-    console.log("     Interes de cuota: ")
-    console.log("#  -   DESCRPCION   -  interes")
-    for (let i = 0; i < array.length; i++) {
-        array[i].muestra()
-    }
-    console.log("-----------------------------")
-}
-
 
 
 // -----------------------  Inicializacion de variables y constantes -----------------------
@@ -120,17 +139,19 @@ let Continue = true
 
 
 
-const btnCargar = document.querySelector("#btnCargar")
-muestraProd(arrayProductos)
 
-btnCargar.addEventListener("click", () => {
-    const cod = document.querySelector("#productoId")
-    const desc = document.querySelector("#descripcionId")
-    const prec = document.querySelector("#precioId")
-    const stock = document.querySelector("#stockId")
-    agregaproducto(arrayProductos, cod.value, desc.value, prec.value, stockId.value)
-    muestraProd(arrayProductos)
-})
+
+agregaCuota(arrayCuotas, 1, "01 Cuota", 0)
+agregaCuota(arrayCuotas, 3, "03 Cuotas", 12)
+agregaCuota(arrayCuotas, 6, "06 Cuotas", 24)
+agregaCuota(arrayCuotas, 9, "09 Cuotas", 36)
+agregaCuota(arrayCuotas, 12, "12 Cuotas", 48)
+agregaCuota(arrayCuotas, 18, "18 Cuotas", 72)
+
+
+
+/// FUNCIONALIDAD MODAL ///
+
 
 const modalContainer = document.getElementById("nuevoProducto")
 const btnAbrir = document.getElementById("btnAbrir")
@@ -149,92 +170,57 @@ btnCerrar.addEventListener("click", () => {
     modalCarga.classList.remove("modalCargaVisible")
 })
 
+const btnCargar = document.querySelector("#btnCargar")
+muestraProd(arrayProductos)
 
-// alert("Bienvenido usuario al desafio N°2 correspondiente a la clase N°6")
-// alert("Este simulador es ingresar productos en en una lista de precios, luego podra (si desea) generar ventas en cuotas")
-// alert("Agreguemos productos entonces")
+btnCargar.addEventListener("click", () => {
+    const cod = document.querySelector("#productoId")
+    const desc = document.querySelector("#descripcionId")
+    const prec = document.querySelector("#precioId")
+    const stock = document.querySelector("#stockId")
+    let resultado = arrayProductos.some((elem) => elem.cod === parseInt(cod.value))
+    if (resultado) {
+        alert("ERROR, EL CODIGO YA EXISTE")
+    } else {
+        agregaproducto(arrayProductos, parseInt(cod.value), desc.value, parseInt(prec.value), parseInt(stockId.value))
+        muestraProd(arrayProductos)
+        alert("El Producto se cargó correctamente!")
+    }
+})
 
-// do {
-//     cod = parseInt(prompt("Ingrese el codigo del producto a cargar:"))
-//     error = arrayProductos.some((elem) => elem.cod === cod)
-//     console.log(error)
-//     while (error) {
-//         alert("EL CODIGO YA EXISTE - VUELVA A INTENTARLO")
-//         cod = parseInt(prompt("Ingrese el codigo del producto a cargar:"))
-//         error = arrayProductos.some((elem) => elem.cod === cod)
-//     }
-//     desc = prompt("Ingrese el nombre o descripcion del producto: ")
-//     prec = parseInt(prompt("Ingrese el precio del producto: "))
-//     agregaproducto(arrayProductos, cod, desc, prec)
-//     console.clear()
-//     muestraProd(arrayProductos)
-//     alert("PRODUCTO CARGADO")
-//     sigue = prompt("Ingrese 's' para agregar otro producto o cualquier letra para finalizar.")
-//     if ((sigue == "s") || (sigue == "S")) {
-//         repeat = true
-//     }
-//     else {
-//         repeat = false
-//     }
-// } while (repeat)
 
-// alert("Su lista de precios ha sido cargada, en consola aparece completa.")
-// console.clear()
-// muestraProd(arrayProductos)
-// Continue = prompt("Ingrese la letra S si desea continuar con el programa de ventas.")
-// if ((Continue == "s") || (Continue == "S")) {
-//     agregaCuota(arrayCuotas, 1, "01 Cuota", 0)
-//     agregaCuota(arrayCuotas, 3, "03 Cuotas", 12)
-//     agregaCuota(arrayCuotas, 6, "06 Cuotas", 24)
-//     agregaCuota(arrayCuotas, 9, "09 Cuotas", 36)
-//     agregaCuota(arrayCuotas, 12, "12 Cuotas", 48)
-//     agregaCuota(arrayCuotas, 18, "18 Cuotas", 72)
-//     do {
-//         console.clear()
-//         muestraProd(arrayProductos)
-//         alert("En la consola figura la lista de productos, el codigo y el precio del mismo.")
-//         cod = parseInt(prompt("Ingrese el codigo del producto que desea comprar."))
-//         error = !(arrayProductos.some((elem) => elem.cod === cod))
-//         while (error) {
-//             alert("ERROR, ESE CODIGO NO EXISTE. VUELVA A INTENTARLO")
-//             cod = parseInt(prompt("Ingrese el codigo del producto que desea comprar."))
-//             error = !(arrayProductos.some((elem) => elem.cod === cod))
-//         }
-//         producto = arrayProductos.find((elem) => elem.cod === cod)
-//         alert("Usted ha elegido: " + producto.descripcion + " a un precio de : $" + producto.precio + ".")
-//         cantidad = parseInt(prompt("Ingrese la cantidad que desea:"))
-//         PrecioEfec = (producto.precio * cantidad)
-//         alert("El precio final es de: $" + PrecioEfec + ".")
-//         muestraCuotas(arrayCuotas)
-//         cod = parseInt(prompt("Ingrese la cantidad de cuotas que desea pagar:"))
-//         error = !(arrayCuotas.some((elem) => elem.cod === cod))
-//         while (error) {
-//             alert("ERROR, ESE CODIGO NO EXISTE. VUELVA A INTENTARLO")
-//             cod = parseInt(prompt("Ingrese la cantidad de cuotas que desea pagar:"))
-//             error = !(arrayCuotas.some((elem) => elem.cod === cod))
-//         }
-//         cuota = arrayCuotas.find((elem) => elem.cod === cod)
-//         let precioFinal = cuota.sumaInteres(PrecioEfec)
-//         let valorCuota = cuota.calculaCuota(precioFinal, codCuotas)
-//         alert("Usted ha elegido " + cuota.descripcion + " con un interes de: " + cuota.interes + "%")
-//         console.log("        TICKET B")
-//         console.log(" ----------------------------------------------")
-//         console.log(" Item  -  DESCRIPCION  -  Cantidad  -  Subtotal")
-//         console.log(" " + producto.cod + "      -  " + producto.descripcion + "      -  " + cantidad + "       -  $" + PrecioEfec)
-//         console.log(" ")
-//         console.log(" ")
-//         console.log(" ----------------------------------------------")
-//         console.log(" PRECIO FINAL: $" + cuota.sumaInteres(PrecioEfec))
-//         console.log(" Financiacion: " + cuota.descripcion + " - Interes: " + cuota.interes + "%")
-//         console.log(" Valor de cuota: " + cuota.calculaCuota(cuota.sumaInteres(PrecioEfec)))
-//         alert("En consola figura el detalle de su compra.")
-//         sigue = prompt("Ingrese 's' para continuar o cualquier letra para finalizar.")
-//         if ((sigue == "s") || (sigue == "S")) {
-//             repeat = true
-//         }
-//         else {
-//             repeat = false
-//         }
+// FUNCIONALIDAD GENERAL //
 
-//     } while (repeat)
-// }
+
+const sumaCarrito = document.querySelector("#sumaCarrito")
+
+const btnComprar = document.querySelector("#btnComprar")
+
+btnComprar.addEventListener("click", () => {
+    if (arrayCarrito.length != 0) {
+        alert("La compra ha sido exitosa")
+        arrayCarrito.splice(0, (arrayCarrito.length))
+        muestraCarrito(arrayCarrito)
+        precioTotal()
+    } else {
+        alert("Agregue productos a la lista para generar compra")
+    }
+})
+
+const search = document.querySelector("#search")
+
+search.addEventListener("input", () => {
+    if ((search.value == 0) || (search.value == undefined)) {
+        muestraProd(arrayProductos)
+    } else {
+        const nuevoArray = []
+        arrayProductos.forEach((elem) => {
+            let palabra = elem.descripcion.toLowerCase()
+            if (palabra.match(search.value.toLowerCase())) {
+                nuevoArray.push(elem)
+            }
+        })
+        muestraProd(nuevoArray)
+    }
+}
+)

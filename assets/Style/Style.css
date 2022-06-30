@@ -5,6 +5,10 @@
     src: url(./../fonts/SairaCondensed-Light.ttf);
 } 
 
+@font-face {
+    font-family: "sairaBold";
+    src: url(./../fonts/SairaCondensed-Bold.ttf);
+} 
 * {
     padding: 0%;
     margin: 0%;
@@ -59,6 +63,14 @@ h3{
 
 main{
     grid-area: conten;
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    grid-template-columns: 2fr 2fr;
+    grid-template-areas: "empresa empresa" "ldp carrito";
+}
+
+#empresa{
+    grid-area: empresa;
 }
 
 
@@ -77,6 +89,10 @@ footer{
     grid-area: footer;
 }
 
+.btn-secondary{
+    --bs-btn-bg: #21288a;
+    --bs-btn-hover-bg: red;
+}
 /* ESTILOS DE MODAL "CARGA DE PRODUCTOS" */
 
 .modalContainer {
@@ -116,6 +132,7 @@ footer{
     height: auto;
 }
 
+
 .modalVisible{
     opacity: 1;
     visibility: visible;
@@ -147,18 +164,18 @@ footer{
 /*ESTILOS DE LISTA DE PRECIOS*/
 
 .containerLdp{
-    width: 50%;
+    grid-area: ldp;
+    width: 100%;
     display: flex;
     flex-flow: column wrap;
-    justify-content: center;
+    justify-content: right;
+    padding-left: 24%;
 }
 
 .containerBusqueda{
     width: 100%;
-    padding-right: 55px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: end;
 }
 
 .containerInputB{
@@ -166,7 +183,6 @@ footer{
     display: flex;
     flex-flow: row wrap;
     justify-content:right;
-    margin: 10px;
     position: relative;
     white-space: nowrap;
 }
@@ -180,7 +196,7 @@ footer{
     text-align: left;
     width: 45%;
     display: block;
-    border-bottom: #fff solid 2px;
+    border-bottom: #fff solid 4px;
 }
 #search{
     background: transparent;
@@ -211,9 +227,8 @@ footer{
 .listaPrecios{
     background-color: #fff;
     width: 80%;
-    height: 500px;
+    height: 650px;
     overflow: auto;
-    margin-left: 15%;
     border-radius: 5px;
     padding: 15px;
 }
@@ -224,31 +239,76 @@ footer{
     border-width: 4px;
     text-align: center;
     border-spacing: 10px;
+    overflow: auto;
 }
 
 .table thead{
     border-bottom: solid 3px;
+}
+
+.table tbody tr{
+    border-bottom: solid 1px;
+}
+
+/* ESTILOS DE CARRITO */
+
+.containerCarrito{
+    grid-area: carrito;
+    width: 75%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: left;
 
 }
 
-
-
-/* thead tr th {
-    text-align: center !important;
-    color: #21288a  !important;
+.carrito{
+    background-color: #fff;
+    width: 80%;
+    height: 650px;
+    overflow: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 15px;
 }
-tbody tr th {
-    text-align: center !important;
-    color: rgb(0,0,0) !important;
+
+.cr{
+    text-align: left;
+    width: 40%;
+    display: block;
+    border-bottom: #fff solid 4px;
+    margin-left: 10px;
 }
-  
-.table{
-    border-color: #21288a;
-    border-width: 210px;
-    /* --bs-table-hover-color: #02fc38 !important;
- } */
 
+#inputCantidad {
+    width: 50px;
+    padding-left: 10px;
+    padding-top: 2px;
+}
 
-/* .modalContainer{
-    
-} */
+.totalCarrito{
+    width: 80%;
+    height: 80px;
+    background-color: #fff;
+    color: #21288a;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 15px;
+    font-family: "sairaBold";
+    font-size: 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.precioText{
+    font-size: 20px;
+    font-weight: bold;
+    width: 30%;
+}
+
+.btnComprar{
+    width: 60%;
+    display:flex;
+    justify-content: right;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
