@@ -23,13 +23,10 @@
             <img src="./assets/img/imagen.webp" alt="Imagen de e-commerce">
         </header>
         <main>
-            <h1>AllMacen</h1>
-            <h2>App de almacen</h2>
-            <section class="container">
-                <div class="btnAbrir">
-                    <button id="btnAbrir" type="reset" class="btn btn-secondary">Cargar Producto</button>
-                </div>
-            </section>
+            <div id="empresa">
+                <h1>AllMacen</h1>
+                <h2>App de almacen</h2>
+            </div>
             <section class="containerLdp">
                 <div class="containerBusqueda">
                     <h2 class="ldp">Lista de precios</h2>
@@ -51,12 +48,39 @@
                                 <th scope="col">ADD</th>
                             </tr>
                         </thead>
-                        <tbody id="listaDePrecios">
+                        <tbody id="tbodyLdp">
                         </tbody>
                     </table>
                 </div>
+                <section class="totalCarrito">
+                    <div class="btnComprar">
+                        <button id="btnAbrir" type="reset" class="btn btn-secondary">Cargar Producto</button>
+                    </div>
+                </section>
             </section>
-            <section id="carrito" class="carrito">
+            <section id="carrito" class="containerCarrito">
+                <h2 class="cr">Venta</h2>
+                <div class="carrito">
+                    <table id="tablaCarrito" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2" style="text-align: left;">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio U.</th>
+                                <th scope="col">Sub total</th>
+                                <th scope="col">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodycarrito">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="totalCarrito">
+                    <p class="precioText">Precio total: $<span id="sumaCarrito">0</span></p>
+                    <div class="btnComprar">
+                        <button id="btnComprar" type="reset" class="btn btn-secondary">Finalizar compra</button>
+                    </div>
+                </div>
             </section>
             <div id="nuevoProducto" class="modalContainer">
                 <form id="modalCarga" class="modalCarga">
@@ -101,10 +125,10 @@
                             </div>
                             <div class="col-auto">
                                 <input type="number" id="stockId" class="form-control"
-                                    aria-describedby="descripcionHelpInline" placeholder="Descripcion">
+                                    aria-describedby="cantidadHelpInline" placeholder="Cantidad">
                             </div>
                             <div class="col-auto">
-                                <span id="descripcionHelpInline" class="form-text">
+                                <span id="cantidadHelpInline" class="form-text">
                                     Ingrese la cantidad de unidades que ingresa
                                 </span>
                             </div>
