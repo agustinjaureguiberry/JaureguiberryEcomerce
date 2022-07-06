@@ -1,3 +1,32 @@
+// -----------------------  Creacion de arrays ----------------------- //
+const agregaproducto = (array, cod, desc, precio, stock) => {
+    let nuevoProd = new productos(cod, desc, precio, stock)
+    array.push(nuevoProd)
+}
+
+const agregaCuota = (array, cod, desc, precio) => {
+    let nuevaCuota = new cuotas(cod, desc, precio)
+    array.push(nuevaCuota)
+}
+
+const agregaCarrito = (id) => {
+    const producto = arrayProductos.find((prod) => prod.cod == id)
+    producto.cantidad = 1
+    arrayCarrito.push(producto)
+    muestraCarrito(arrayCarrito)
+    precioTotal()
+}
+
+const quitaCarrito = (id) => {
+    const i = arrayCarrito.indexOf(arrayCarrito.find((elem) => elem.cod === id))
+    arrayCarrito.splice(i, 1)
+    muestraCarrito(arrayCarrito)
+    console.log(arrayCarrito)
+    precioTotal()
+}
+
+// ----------------------- Inicializacion de memoria ----------------------- //
+
 const arrayProductos = [{ cod: 1, descripcion: "Leche La Serenisima entera 1 L", precio: 135, stock: 10 },
 { cod: 2, descripcion: "Harina 0000 Blancaflor x 1 Kg", precio: 140, stock: 10 },
 { cod: 3, descripcion: "Pan lactal Bimbo x 500 grs ", precio: 220, stock: 10 },
