@@ -51,6 +51,16 @@ let repeat = false
 let error = false
 let Continue = true
 
+fetch('./../assets/js/ldp.json')
+    .then((res) => res.json())
+    .then((data) => {
+        data.forEach((elem) => {
+            arrayProductos.push(elem)
+        })
+        muestraProd(arrayProductos)
+    })
+
+
 
 agregaCuota(arrayCuotas, 1, "01 Cuota", 0)
 agregaCuota(arrayCuotas, 3, "03 Cuotas", 12)
@@ -111,6 +121,7 @@ btnCargar.addEventListener("click", () => {
 
 
 // FUNCIONALIDAD GENERAL //
+
 
 
 const sumaCarrito = document.querySelector("#sumaCarrito")
