@@ -5,7 +5,7 @@ const muestraProd = (array) => {
     modificaHTML.innerHTML = `<thead>
                                     <tr>
                                     <th scope="col" colspan="2" style="text-align: left;">Producto</th>
-                                    <th scope="col">Precio</th>
+                                    <th scope="col">Precio </th>
                                     <th scope="col">ADD </th>
                                     </tr>
                                 </thead>

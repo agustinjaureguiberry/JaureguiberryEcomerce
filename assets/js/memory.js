@@ -10,6 +10,15 @@ const agregaCuota = (array, cod, desc, precio) => {
 }
 
 const agregaCarrito = (id) => {
+    Toastify({
+        text: "Producto agregado al carrito",
+        duration: 2000,
+        gravity: "bottom",
+        position: "right",
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        }
+    }).showToast();
     const producto = arrayProductos.find((prod) => prod.cod == id)
     producto.cantidad = 1
     arrayCarrito.push(producto)

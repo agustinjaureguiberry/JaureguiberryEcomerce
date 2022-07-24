@@ -31,11 +31,7 @@ class cuotas {
 // ----------------------- Funciones principales ----------------------- //
 
 const precioTotal = () => {
-    let total = 0
-    arrayCarrito.forEach((elem) => {
-        total += elem.precio
-    })
-
+    let total = arrayCarrito.reduce((acum, elem) => acum + elem.precio, 0)
     sumaCarrito.innerText = total
 }
 
@@ -80,7 +76,6 @@ const btnAbrir = document.getElementById("btnAbrir")
 btnAbrir.addEventListener("click", () => {
     const modalCarga = document.getElementById("modalCarga")
     modalContainer.classList.add("modalVisible")
-    modalCarga.classList.remove("modalCargaVisible")
 })
 
 const btnCerrar = document.getElementById("btnCerrar")
@@ -88,7 +83,6 @@ const btnCerrar = document.getElementById("btnCerrar")
 btnCerrar.addEventListener("click", () => {
     const modalCarga = document.getElementById("modalCarga")
     modalContainer.classList.remove("modalVisible")
-    modalCarga.classList.remove("modalCargaVisible")
 })
 
 const btnCargar = document.querySelector("#btnCargar")
@@ -122,27 +116,30 @@ btnCargar.addEventListener("click", () => {
 
 // FUNCIONALIDAD GENERAL //
 
-
+var DateTime = luxon.DateTime
 
 const sumaCarrito = document.querySelector("#sumaCarrito")
 
 const btnComprar = document.querySelector("#btnComprar")
 
+
+
+
 btnComprar.addEventListener("click", () => {
     if (arrayCarrito.length != 0) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'La compra ha sido exitosa',
-            showConfirmButton: false,
-            timer: 2000
-        })
+        const modalTicket = document.getElementById("modalTicket")
+        modalTicket.classList.add("modalVisible")
+        const tiempo = DateTime.now()
+        const fecha = document.querySelector("#fecha")
+        fecha.innerText = `Fecha y hora: ${tiempo.toLocaleString(DateTime.DATETIME_SHORT)}`
+
+
         arrayCarrito.splice(0, (arrayCarrito.length))
         muestraCarrito(arrayCarrito)
         precioTotal()
     } else {
         Swal.fire({
-            position: 'top-end',
+            position: 'center',
             icon: 'error',
             title: 'Agregue productos para generar una venta',
             showConfirmButton: false,
@@ -150,6 +147,16 @@ btnComprar.addEventListener("click", () => {
         })
     }
 })
+
+const btnCerrarTicket = document.getElementById("btnCerrarTicket")
+
+btnCerrarTicket.addEventListener("click", () => {
+    const modalCarga = document.getElementById("modalTicket")
+    modalTicket.classList.remove("modalVisible")
+})
+
+
+
 
 const search = document.querySelector("#search")
 
@@ -168,3 +175,4 @@ search.addEventListener("input", () => {
     }
 }
 )
+
