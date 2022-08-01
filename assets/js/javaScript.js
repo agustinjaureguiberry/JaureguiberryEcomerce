@@ -9,61 +9,13 @@ class productos {
     }
 }
 
-
-class cuotas {
-    constructor(cod, descripcion, interes) {
-        this.cod = cod
-        this.descripcion = descripcion
-        this.interes = interes
-    }
-    muestra() {
-        console.log(this.cod + "  -   " + this.descripcion + "   -   " + this.interes + "%")
-
-    }
-    sumaInteres(precio) {
-        let interes = precio * (this.interes / 100)
-        return (precio + interes)
-    }
-    calculaCuota(precio) {
-        return (precio / this.cod)
-    }
-}
 // ----------------------- Funciones principales ----------------------- //
 
 const precioTotal = () => {
-    let total = arrayCarrito.reduce((acum, elem) => acum + elem.precio, 0)
+    let total = arrayCarrito.reduce((acum, elem) => acum + (elem.precio * elem.cantidad), 0)
     sumaCarrito.innerText = total
+    return total
 }
-
-
-// -----------------------  Inicializacion de variables y constantes ----------------------- //
-let producto
-let cantidad
-let cuota
-let PrecioEfec
-let codCuotas
-let sigue = false
-let repeat = false
-let error = false
-let Continue = true
-
-fetch('./../assets/js/ldp.json')
-    .then((res) => res.json())
-    .then((data) => {
-        data.forEach((elem) => {
-            arrayProductos.push(elem)
-        })
-        muestraProd(arrayProductos)
-    })
-
-
-
-agregaCuota(arrayCuotas, 1, "01 Cuota", 0)
-agregaCuota(arrayCuotas, 3, "03 Cuotas", 12)
-agregaCuota(arrayCuotas, 6, "06 Cuotas", 24)
-agregaCuota(arrayCuotas, 9, "09 Cuotas", 36)
-agregaCuota(arrayCuotas, 12, "12 Cuotas", 48)
-agregaCuota(arrayCuotas, 18, "18 Cuotas", 72)
 
 
 
@@ -86,23 +38,42 @@ btnCerrar.addEventListener("click", () => {
 })
 
 const btnCargar = document.querySelector("#btnCargar")
-muestraProd(arrayProductos)
 
 btnCargar.addEventListener("click", () => {
+    var cont = 0
     const cod = document.querySelector("#productoId")
+    var validacion = (cod.value || false)
+    if (validacion === false) {
+        cont += 1
+    }
     const desc = document.querySelector("#descripcionId")
+    validacion = (desc.value || false)
+    if (validacion === false) {
+        cont += 1
+    }
     const prec = document.querySelector("#precioId")
-    const stock = document.querySelector("#stockId")
+    validacion = (prec.value || false)
+    if (validacion === false) {
+        cont += 1
+    }
+    var stock = document.querySelector("#stockId")
+    validacion = (stock.value || false)
+    if (validacion === false) {
+        stock = 1
+    }
     let resultado = arrayProductos.some((elem) => elem.cod === parseInt(cod.value))
-    if (resultado) {
+
+    if ((resultado) || (cont != 0)) {
         Swal.fire({
             icon: 'error',
-            title: 'El codigo ya existe',
+            title: 'REVISE LOS CAMPOS',
             showConfirmButton: false,
             timer: 1500
         })
     } else {
         agregaproducto(arrayProductos, parseInt(cod.value), desc.value, parseInt(prec.value), parseInt(stockId.value))
+        var codst = { cod: parseInt(cod.value), stock: parseInt(stock.value) }
+        arrayCodigoStock.push(codst)
         muestraProd(arrayProductos)
         Swal.fire({
             icon: 'success',
@@ -127,13 +98,7 @@ const btnComprar = document.querySelector("#btnComprar")
 
 btnComprar.addEventListener("click", () => {
     if (arrayCarrito.length != 0) {
-        const modalTicket = document.getElementById("modalTicket")
-        modalTicket.classList.add("modalVisible")
-        const tiempo = DateTime.now()
-        const fecha = document.querySelector("#fecha")
-        fecha.innerText = `Fecha y hora: ${tiempo.toLocaleString(DateTime.DATETIME_SHORT)}`
-
-
+        creaTicket(arrayCarrito)
         arrayCarrito.splice(0, (arrayCarrito.length))
         muestraCarrito(arrayCarrito)
         precioTotal()
@@ -175,4 +140,3 @@ search.addEventListener("input", () => {
     }
 }
 )
-

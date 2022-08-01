@@ -1,11 +1,13 @@
 [
     {
+        "cantidad": 0,
         "cod": 1,
         "descripcion": "Leche La Serenisima entera 1 L",
         "precio": 135,
         "stock": 10
     },
     {
+        "cantidad": 0,
         "cod": 2,
         "descripcion": "Harina 0000 Blancaflor x 1 Kg",
         "precio": 140,

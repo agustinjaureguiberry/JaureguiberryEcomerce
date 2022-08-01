@@ -159,6 +159,9 @@ footer{
 
 /*ESTILOS DE LISTA DE PRECIOS*/
 
+
+
+
 .containerLdp{
     grid-area: ldp;
     width: 100%;
@@ -225,9 +228,25 @@ footer{
     width: 80%;
     height: 650px;
     overflow: auto;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
     padding: 15px;
+    box-shadow: 5px 10px 10px 3px rgba(53, 51, 51, 0.685);
 }
+
+.listaPrecios::-webkit-scrollbar {
+    width: 12px;
+    background: white;
+  }
+  
+.listaPrecios::-webkit-scrollbar-track {
+    background: rgb(230, 230, 230);
+    border-radius: 5px;
+  }
+  
+.listaPrecios::-webkit-scrollbar-thumb {
+    background-color: rgb(50, 168, 223);
+    border-radius: 5px;      
+  }
 
 .table{
     --bs-border-color: #21288a;
@@ -262,10 +281,27 @@ footer{
     width: 80%;
     height: 650px;
     overflow: auto;
+    box-shadow: 5px 10px 10px 3px rgba(53, 51, 51, 0.685);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding: 15px;
+
 }
+.carrito::-webkit-scrollbar {
+    width: 12px;
+    background: white;
+  }
+  
+.carrito::-webkit-scrollbar-track {
+    background: rgb(230, 230, 230);
+    border-radius: 5px;
+  }
+  
+.carrito::-webkit-scrollbar-thumb {
+    background-color: rgb(50, 168, 223);
+    border-radius: 5px;      
+  }
+
 
 .cr{
     text-align: left;
@@ -275,8 +311,9 @@ footer{
     margin-left: 10px;
 }
 
-#inputCantidad {
-    width: 50px;
+.inputCantidad {
+    width: 70px;
+    height: 35px;
     padding-left: 10px;
     padding-top: 2px;
 }
@@ -291,6 +328,7 @@ footer{
     padding: 15px;
     font-family: "sairaBold";
     font-size: 20px;
+    box-shadow: 5px 10px 10px 3px rgba(53, 51, 51, 0.685);
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -380,4 +418,12 @@ footer{
 .modalVisible{
     opacity: 1;
     visibility: visible;
+}
+
+
+.precioTicket {
+    display: inline;
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
 }
